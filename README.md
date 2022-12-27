@@ -1,9 +1,9 @@
-# xk6-sql
+# xk6-sql (Trino fork)
 
 This is a [k6](https://github.com/grafana/k6) extension using the
 [xk6](https://github.com/grafana/xk6) system.
 
-Supported RDBMSs: `mysql`, `postgres`, `sqlite3`, `sqlserver`. See the [tests](tests)
+Supported RDBMSs: `mysql`, `postgres`, `sqlite3`, `sqlserver`, `trino`. See the [tests](tests)
 directory for examples. Other RDBMSs are not supported, see
 [details below](#support-for-other-rdbmss).
 
@@ -28,19 +28,19 @@ Then:
 
 2. Build the binary:
   ```shell
-  xk6 build --with github.com/grafana/xk6-sql
+  xk6 build --with github.com/starburstdata/xk6-sql
   ```
 
   If you're using SQLite, ensure you have a C compiler installed (see the
   prerequisites note) and set `CGO_ENABLED=1` in the environment:
   ```shell
-  CGO_ENABLED=1 xk6 build --with github.com/grafana/xk6-sql
+  CGO_ENABLED=1 xk6 build --with github.com/starburstdata/xk6-sql
   ```
 
   On Windows this is done slightly differently:
   ```shell
   set CGO_ENABLED=1
-  xk6 build --with github.com/grafana/xk6-sql
+  xk6 build --with github.com/starburstdata/xk6-sql
   ```
 
 ## Development
@@ -133,26 +133,9 @@ There are however forks of this project that add additional support for:
 You can build k6 binaries by simply specifying these project URLs in `xk6 build`.
 E.g. `CGO_ENABLED=1 xk6 build --with github.com/stefnedelchev/xk6-sql-with-oracle`.
 Please report any issues with these extensions in their respective GitHub issue trackers,
-and not in grafana/xk6-sql.
+and not in starburstdata/xk6-sql.
 
 
 ## Docker
 
-For those who do not have a Go development environment available, or simply want
-to run an extended version of `k6` as a container, Docker is an option to build
-and run the application.
-
-The following command will build a custom `k6` image incorporating the `xk6-sql` extension
-built from the local source files.
-```shell
-docker build -t grafana/k6-for-sql:latest .
-```
-Using this image, you may then execute the [tests/sqlite3_test.js](tests/sqlite3_test.js) script
-by running the following command:
-```shell
-docker run -v $PWD:/scripts -it --rm grafana/k6-for-sql:latest run /scripts/tests/sqlite3_test.js
-```
-For those on Mac or Linux, the `docker-run.sh` script simplifies the command:
-```shell
-./docker-run.sh tests/sqlite3_test.js
-```
+As of writing, we have yet to publish Docker images for the Trino fork of xk6-sql.
